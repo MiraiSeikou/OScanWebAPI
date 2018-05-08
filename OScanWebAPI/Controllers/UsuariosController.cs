@@ -45,7 +45,7 @@ namespace OScanWebAPI.Controllers
         [Route("api/Usuarios/{username}/{password}")]
         public IHttpActionResult GetUsuario(string username, string password)
         {
-            Usuario usuario = db.Usuario.First(u => u.NomeUsuario == username && u.Senha == password);
+            Usuario usuario = db.Usuario.First(u => u.NomeUsuario.Equals(username) && u.Senha.Equals(password));
             if (usuario == null)
             {
                 return NotFound();

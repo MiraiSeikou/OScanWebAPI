@@ -27,17 +27,10 @@ namespace OScanWebAPI.Controllers
             return db.Processador;
         }
 
-        // GET: api/Processadors/5
-        [ResponseType(typeof(Processador))]
-        public IHttpActionResult GetProcessador(int id)
+        // GET: api/Processadors/idMaquina
+        public IQueryable<Processador> GetProcessador(int idMaquina)
         {
-            Processador processador = db.Processador.Find(id);
-            if (processador == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(processador);
+            return db.Processador.Where(p => p.IdMaquina == idMaquina);
         }
 
         // PUT: api/Processadors/5

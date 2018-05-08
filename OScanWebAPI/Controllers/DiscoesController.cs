@@ -27,6 +27,12 @@ namespace OScanWebAPI.Controllers
             return db.Disco;
         }
 
+        // GET: api/Discoes/idMaquina
+        public IQueryable<Disco> GetDiscoes(int idMaquina)
+        {
+            return db.Disco.Where(d => d.IdMaquina == idMaquina);
+        }
+
         // GET: api/Discoes/5
         [ResponseType(typeof(Disco))]
         public IHttpActionResult GetDisco(int id)

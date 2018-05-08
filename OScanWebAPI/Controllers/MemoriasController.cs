@@ -20,10 +20,17 @@ namespace OScanWebAPI.Controllers
         {
             db.Configuration.ProxyCreationEnabled = false;
         }
+
         // GET: api/Memorias
         public IQueryable<Memoria> GetMemoria()
         {
             return db.Memoria;
+        }
+
+        // GET: api/Memorias/idMaquina
+        public IQueryable<Memoria> GetMemorias(int idMaquina)
+        {
+            return db.Memoria.Where(m => m.IdMaquina == idMaquina);
         }
 
         // GET: api/Memorias/5

@@ -29,9 +29,31 @@ namespace OScanWebAPI.Controllers
 
         // GET: api/Maquinas/5
         [ResponseType(typeof(Maquina))]
+        [Route("api/Maquinas/IdUsuario/{idUsuario}")]
+        public IQueryable<Maquina> GetMaquinaByUsuario(int idUsuario)
+        {
+            return db.Maquina.Where(m => m.IdUsuario == idUsuario);
+        }
+
+        // GET: api/Maquinas/5
+        [ResponseType(typeof(Maquina))]
+        [Route("api/Maquinas/Id/{id}")]
         public IHttpActionResult GetMaquina(int id)
         {
             Maquina maquina = db.Maquina.Find(id);
+            if (maquina == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(maquina);
+        }
+
+        // GET: api/Maquinas/5
+        [ResponseType(typeof(Maquina))]
+        public IHttpActionResult GetMaquina(string macAddr)
+        {
+            Maquina maquina = db.Maquina.First(m => m.MacAddr == macAddr);
             if (maquina == null)
             {
                 return NotFound();
