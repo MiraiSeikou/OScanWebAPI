@@ -28,23 +28,24 @@ namespace OScanWebAPI.Controllers
         }
 
         // GET: api/Discoes/idMaquina
+        [Route("api/Discoes/IdMaquina/{idMaquina}")]
         public IQueryable<Disco> GetDiscoes(int idMaquina)
         {
-            return db.Disco.Where(d => d.IdMaquina == idMaquina);
+            return db.Disco.Where(d => d.IdMaquina.Equals(idMaquina));
         }
 
         // GET: api/Discoes/5
-        [ResponseType(typeof(Disco))]
-        public IHttpActionResult GetDisco(int id)
-        {
-            Disco disco = db.Disco.Find(id);
-            if (disco == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Disco))]
+        //public IHttpActionResult GetDisco(int id)
+        //{
+        //    Disco disco = db.Disco.Find(id);
+        //    if (disco == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(disco);
-        }
+        //    return Ok(disco);
+        //}
 
         // PUT: api/Discoes/5
         [ResponseType(typeof(void))]

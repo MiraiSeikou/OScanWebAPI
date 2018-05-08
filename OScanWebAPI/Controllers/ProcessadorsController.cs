@@ -28,9 +28,10 @@ namespace OScanWebAPI.Controllers
         }
 
         // GET: api/Processadors/idMaquina
+        [Route("api/Processadors/IdMaquina/{idMaquina}")]
         public IQueryable<Processador> GetProcessador(int idMaquina)
         {
-            return db.Processador.Where(p => p.IdMaquina == idMaquina);
+            return db.Processador.Where(p => p.IdMaquina.Equals(idMaquina));
         }
 
         // PUT: api/Processadors/5

@@ -27,24 +27,25 @@ namespace OScanWebAPI.Controllers
             return db.Memoria;
         }
 
-        // GET: api/Memorias/idMaquina
+        // GET: api/Memorias/{idMaquina}
+        [Route("api/Memorias/IdMaquina/{idMaquina}")]
         public IQueryable<Memoria> GetMemorias(int idMaquina)
         {
-            return db.Memoria.Where(m => m.IdMaquina == idMaquina);
+            return db.Memoria.Where(m => m.IdMaquina.Equals(idMaquina));
         }
 
         // GET: api/Memorias/5
-        [ResponseType(typeof(Memoria))]
-        public IHttpActionResult GetMemoria(int id)
-        {
-            Memoria memoria = db.Memoria.Find(id);
-            if (memoria == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Memoria))]
+        //public IHttpActionResult GetMemoria(int id)
+        //{
+        //    Memoria memoria = db.Memoria.Find(id);
+        //    if (memoria == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(memoria);
-        }
+        //    return Ok(memoria);
+        //}
 
         // PUT: api/Memorias/5
         [ResponseType(typeof(void))]
