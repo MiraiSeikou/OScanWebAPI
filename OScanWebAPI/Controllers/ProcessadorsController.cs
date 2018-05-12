@@ -31,7 +31,7 @@ namespace OScanWebAPI.Controllers
         [Route("api/Processadors/IdMaquina/{idMaquina}")]
         public Processador GetProcessador(int idMaquina)
         {
-            return db.Processador.Last(p => p.IdMaquina == idMaquina);
+            return db.Processador.LastOrDefault(p => p.IdMaquina.Equals(idMaquina));
         }
 
         // PUT: api/Processadors/5
