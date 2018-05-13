@@ -21,7 +21,7 @@ namespace OScanWebAPI.Controllers
             db.Configuration.ProxyCreationEnabled = false;
         }
 
-        // GET: api/Discoes
+             // GET: api/Discoes
         public IQueryable<Disco> GetDisco()
         {
             return db.Disco;
@@ -29,9 +29,15 @@ namespace OScanWebAPI.Controllers
 
         // GET: api/Discoes/idMaquina
         [Route("api/Discoes/IdMaquina/{idMaquina}")]
-        public IQueryable<Disco> GetDiscoes(int idMaquina)
+        public IQueryable<Disco> GetAllDiscoes(int idMaquina)
         {
             return db.Disco.Where(d => d.IdMaquina.Equals(idMaquina));
+        }
+
+        [Route("api/Disco/IdMaquina/{idMaquina}")]
+        public IHttpActionResult GetDiscoes(int idMaquina)
+        {
+            return Ok(db.Disco.Last(d => d.IdMaquina.Equals(idMaquina)));
         }
 
         // GET: api/Discoes/5

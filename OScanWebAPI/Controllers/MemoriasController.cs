@@ -29,9 +29,15 @@ namespace OScanWebAPI.Controllers
 
         // GET: api/Memorias/{idMaquina}
         [Route("api/Memorias/IdMaquina/{idMaquina}")]
-        public IQueryable<Memoria> GetMemorias(int idMaquina)
+        public IQueryable<Memoria> GetAlltMemorias(int idMaquina)
         {
             return db.Memoria.Where(m => m.IdMaquina.Equals(idMaquina));
+        }
+
+        [Route("api/Memoria/IdMaquina/{idMaquina}")]
+        public IHttpActionResult GetLastMemorias(int idMaquina)
+        {
+            return Ok(db.Memoria.Last(m => m.IdMaquina.Equals(idMaquina)));
         }
 
         // GET: api/Memorias/5
