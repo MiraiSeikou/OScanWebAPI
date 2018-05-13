@@ -1,4 +1,4 @@
-﻿using System;
+﻿	using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -37,7 +37,7 @@ namespace OScanWebAPI.Controllers
         [Route("api/Processadors/Id/{idMaquina}")]
         public IHttpActionResult GetLastProcessador(int idMaquina)
         {
-            return Ok(db.Processador.Last(p => p.IdMaquina.Equals(idMaquina)));
+            return Ok(db.Processador.OrderByDescending(d => d.Momentum).First(d => d.IdMaquina == idMaquina));
         }
 
         // PUT: api/Processadors/5

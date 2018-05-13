@@ -37,7 +37,7 @@ namespace OScanWebAPI.Controllers
         [Route("api/Memorias/Id/{idMaquina}")]
         public IHttpActionResult GetLastMemorias(int idMaquina)
         {
-            return Ok(db.Memoria.Last(m => m.IdMaquina.Equals(idMaquina)));
+            return Ok(db.Memoria.OrderByDescending(d => d.Momentum).First(d => d.IdMaquina == idMaquina));
         }
 
         // GET: api/Memorias/5

@@ -37,7 +37,7 @@ namespace OScanWebAPI.Controllers
         [Route("api/Discoes/Id/{idMaquina}")]
         public IHttpActionResult GetDiscoes(int idMaquina)
         {
-            return Ok(db.Disco.Last(d => d.IdMaquina.Equals(idMaquina)));
+            return Ok(db.Disco.OrderByDescending(d => d.Momentum).First(d => d.IdMaquina == idMaquina));
         }
 
         // GET: api/Discoes/5
