@@ -34,7 +34,7 @@ namespace OScanWebAPI.Controllers
             return db.Disco.Where(d => d.IdMaquina.Equals(idMaquina));
         }
 
-        [Route("api/Disco/IdMaquina/{idMaquina}")]
+        [Route("api/Discoes/Id/{idMaquina}")]
         public IHttpActionResult GetDiscoes(int idMaquina)
         {
             return Ok(db.Disco.Last(d => d.IdMaquina.Equals(idMaquina)));

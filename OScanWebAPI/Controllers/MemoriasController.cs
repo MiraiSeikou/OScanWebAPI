@@ -34,7 +34,7 @@ namespace OScanWebAPI.Controllers
             return db.Memoria.Where(m => m.IdMaquina.Equals(idMaquina));
         }
 
-        [Route("api/Memoria/IdMaquina/{idMaquina}")]
+        [Route("api/Memorias/Id/{idMaquina}")]
         public IHttpActionResult GetLastMemorias(int idMaquina)
         {
             return Ok(db.Memoria.Last(m => m.IdMaquina.Equals(idMaquina)));

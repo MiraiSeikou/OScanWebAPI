@@ -34,7 +34,7 @@ namespace OScanWebAPI.Controllers
         }
 
         // GET: api/Processador/idMaquina
-        [Route("api/Processador/IdMaquina/{idMaquina}")]
+        [Route("api/Processadors/Id/{idMaquina}")]
         public IHttpActionResult GetLastProcessador(int idMaquina)
         {
             return Ok(db.Processador.Last(p => p.IdMaquina.Equals(idMaquina)));
