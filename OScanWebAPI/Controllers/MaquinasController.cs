@@ -16,6 +16,11 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
+        public MaquinasController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
         // GET: api/Maquinas
         public IQueryable<Maquina> GetMaquina()
         {
