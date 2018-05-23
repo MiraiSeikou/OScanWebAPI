@@ -29,6 +29,7 @@ namespace OScanWebAPI.Controllers
 
         // GET: api/Maquinas/5
         [ResponseType(typeof(Maquina))]
+        [Route("api/Maquinas/Id/{id}")]
         public IHttpActionResult GetMaquina(int id)
         {
             Maquina maquina = db.Maquina.Find(id);
