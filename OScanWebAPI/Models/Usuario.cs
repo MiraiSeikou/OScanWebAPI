@@ -21,12 +21,10 @@ namespace OScanWebAPI.Models
         }
     
         public int Id { get; set; }
-        public string NomeUsuario { get; set; }
-        public string Senha { get; set; }
         public string Nome { get; set; }
-        public int IdAssinatura { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
     
-        public virtual Assinatura Assinatura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Maquina> Maquina { get; set; }
     }

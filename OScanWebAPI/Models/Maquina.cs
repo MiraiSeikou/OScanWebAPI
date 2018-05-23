@@ -17,19 +17,21 @@ namespace OScanWebAPI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Maquina()
         {
-            this.Disco = new HashSet<Disco>();
+            this.FileStore = new HashSet<FileStore>();
             this.Memoria = new HashSet<Memoria>();
             this.Processador = new HashSet<Processador>();
         }
     
         public int Id { get; set; }
-        public string Nome { get; set; }
+        public string Name { get; set; }
         public string OSName { get; set; }
-        public string MacAddr { get; set; }
-        public int IdUsuario { get; set; }
+        public string Serial { get; set; }
+        public Nullable<int> IdAssinatura { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
     
+        public virtual Assinatura Assinatura { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Disco> Disco { get; set; }
+        public virtual ICollection<FileStore> FileStore { get; set; }
         public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Memoria> Memoria { get; set; }

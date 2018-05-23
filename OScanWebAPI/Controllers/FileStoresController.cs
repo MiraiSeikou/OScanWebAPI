@@ -12,44 +12,44 @@ using OScanWebAPI.Models;
 
 namespace OScanWebAPI.Controllers
 {
-    public class MemoriasController : ApiController
+    public class FileStoresController : ApiController
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
-        // GET: api/Memorias
-        public IQueryable<Memoria> GetMemoria()
+        // GET: api/FileStores
+        public IQueryable<FileStore> GetFileStore()
         {
-            return db.Memoria;
+            return db.FileStore;
         }
 
-        // GET: api/Memorias/5
-        [ResponseType(typeof(Memoria))]
-        public IHttpActionResult GetMemoria(int id)
+        // GET: api/FileStores/5
+        [ResponseType(typeof(FileStore))]
+        public IHttpActionResult GetFileStore(int id)
         {
-            Memoria memoria = db.Memoria.Find(id);
-            if (memoria == null)
+            FileStore fileStore = db.FileStore.Find(id);
+            if (fileStore == null)
             {
                 return NotFound();
             }
 
-            return Ok(memoria);
+            return Ok(fileStore);
         }
 
-        // PUT: api/Memorias/5
+        // PUT: api/FileStores/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMemoria(int id, Memoria memoria)
+        public IHttpActionResult PutFileStore(int id, FileStore fileStore)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != memoria.Id)
+            if (id != fileStore.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(memoria).State = EntityState.Modified;
+            db.Entry(fileStore).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace OScanWebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MemoriaExists(id))
+                if (!FileStoreExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +70,35 @@ namespace OScanWebAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Memorias
-        [ResponseType(typeof(Memoria))]
-        public IHttpActionResult PostMemoria(Memoria memoria)
+        // POST: api/FileStores
+        [ResponseType(typeof(FileStore))]
+        public IHttpActionResult PostFileStore(FileStore fileStore)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Memoria.Add(memoria);
+            db.FileStore.Add(fileStore);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = memoria.Id }, memoria);
+            return CreatedAtRoute("DefaultApi", new { id = fileStore.Id }, fileStore);
         }
 
-        // DELETE: api/Memorias/5
-        [ResponseType(typeof(Memoria))]
-        public IHttpActionResult DeleteMemoria(int id)
+        // DELETE: api/FileStores/5
+        [ResponseType(typeof(FileStore))]
+        public IHttpActionResult DeleteFileStore(int id)
         {
-            Memoria memoria = db.Memoria.Find(id);
-            if (memoria == null)
+            FileStore fileStore = db.FileStore.Find(id);
+            if (fileStore == null)
             {
                 return NotFound();
             }
 
-            db.Memoria.Remove(memoria);
+            db.FileStore.Remove(fileStore);
             db.SaveChanges();
 
-            return Ok(memoria);
+            return Ok(fileStore);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +110,9 @@ namespace OScanWebAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool MemoriaExists(int id)
+        private bool FileStoreExists(int id)
         {
-            return db.Memoria.Count(e => e.Id == id) > 0;
+            return db.FileStore.Count(e => e.Id == id) > 0;
         }
     }
 }

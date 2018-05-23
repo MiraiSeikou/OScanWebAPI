@@ -10,10 +10,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="30" />
-          <Property Name="Pacote" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="60" />
+          <Property Name="Pacote" Type="varchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="Disco">
+        <EntityType Name="FileStore">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -21,17 +21,18 @@
           <Property Name="Total" Type="bigint" />
           <Property Name="Available" Type="bigint" />
           <Property Name="Momentum" Type="datetime" />
-          <Property Name="IdMaquina" Type="int" Nullable="false" />
+          <Property Name="IdMaquina" Type="int" />
         </EntityType>
         <EntityType Name="Maquina">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="60" />
-          <Property Name="OSName" Type="varchar" MaxLength="100" />
-          <Property Name="MacAddr" Type="char" MaxLength="18" />
-          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="60" />
+          <Property Name="OSName" Type="varchar" MaxLength="60" />
+          <Property Name="Serial" Type="varchar" MaxLength="80" />
+          <Property Name="IdAssinatura" Type="int" />
+          <Property Name="IdUsuario" Type="int" />
         </EntityType>
         <EntityType Name="Memoria">
           <Key>
@@ -43,41 +44,57 @@
           <Property Name="SwapTotal" Type="bigint" />
           <Property Name="SwapAvailable" Type="bigint" />
           <Property Name="Momentum" Type="datetime" />
-          <Property Name="IdMaquina" Type="int" Nullable="false" />
+          <Property Name="IdMaquina" Type="int" />
         </EntityType>
         <EntityType Name="Processador">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Usage" Type="float" />
+          <Property Name="VendorFreq" Type="bigint" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+          <Property Name="LogicalProcessorCount" Type="int" />
+          <Property Name="PhysicalProcessorCount" Type="int" />
+          <Property Name="SystemUptime" Type="time" Precision="7" />
+          <Property Name="SystemCpuLoad" Type="float" />
           <Property Name="Momentum" Type="datetime" />
-          <Property Name="IdMaquina" Type="int" Nullable="false" />
+          <Property Name="IdMaquina" Type="int" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NomeUsuario" Type="varchar" MaxLength="40" />
-          <Property Name="Senha" Type="varchar" MaxLength="100" />
-          <Property Name="Nome" Type="varchar" MaxLength="120" />
-          <Property Name="IdAssinatura" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="60" />
+          <Property Name="Email" Type="varchar" MaxLength="60" />
+          <Property Name="Senha" Type="varchar" MaxLength="60" />
         </EntityType>
-        <Association Name="FK__Disco__IdMaquina__6D9742D9">
-          <End Role="Maquina" Type="Self.Maquina" Multiplicity="1" />
-          <End Role="Disco" Type="Self.Disco" Multiplicity="*" />
+        <Association Name="FK_FileStore_1">
+          <End Role="Maquina" Type="Self.Maquina" Multiplicity="0..1" />
+          <End Role="FileStore" Type="Self.FileStore" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Maquina">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Disco">
+            <Dependent Role="FileStore">
               <PropertyRef Name="IdMaquina" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Maquina__IdUsuar__67DE6983">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+        <Association Name="FK_Maquina_1">
+          <End Role="Assinatura" Type="Self.Assinatura" Multiplicity="0..1" />
+          <End Role="Maquina" Type="Self.Maquina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assinatura">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Maquina">
+              <PropertyRef Name="IdAssinatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Maquina_2">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Maquina" Type="Self.Maquina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
@@ -88,8 +105,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Memoria__IdMaqui__6ABAD62E">
-          <End Role="Maquina" Type="Self.Maquina" Multiplicity="1" />
+        <Association Name="FK_Memoria_1">
+          <End Role="Maquina" Type="Self.Maquina" Multiplicity="0..1" />
           <End Role="Memoria" Type="Self.Memoria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Maquina">
@@ -100,8 +117,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Processad__IdMaq__7073AF84">
-          <End Role="Maquina" Type="Self.Maquina" Multiplicity="1" />
+        <Association Name="FK_Processador_1">
+          <End Role="Maquina" Type="Self.Maquina" Multiplicity="0..1" />
           <End Role="Processador" Type="Self.Processador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Maquina">
@@ -112,44 +129,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuario__IdAssin__6501FCD8">
-          <End Role="Assinatura" Type="Self.Assinatura" Multiplicity="1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Assinatura">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Usuario">
-              <PropertyRef Name="IdAssinatura" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="dbHammerspaceModelStoreContainer">
           <EntitySet Name="Assinatura" EntityType="Self.Assinatura" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Disco" EntityType="Self.Disco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FileStore" EntityType="Self.FileStore" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Maquina" EntityType="Self.Maquina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Memoria" EntityType="Self.Memoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Processador" EntityType="Self.Processador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Disco__IdMaquina__6D9742D9" Association="Self.FK__Disco__IdMaquina__6D9742D9">
+          <AssociationSet Name="FK_FileStore_1" Association="Self.FK_FileStore_1">
             <End Role="Maquina" EntitySet="Maquina" />
-            <End Role="Disco" EntitySet="Disco" />
+            <End Role="FileStore" EntitySet="FileStore" />
           </AssociationSet>
-          <AssociationSet Name="FK__Maquina__IdUsuar__67DE6983" Association="Self.FK__Maquina__IdUsuar__67DE6983">
+          <AssociationSet Name="FK_Maquina_1" Association="Self.FK_Maquina_1">
+            <End Role="Assinatura" EntitySet="Assinatura" />
+            <End Role="Maquina" EntitySet="Maquina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maquina_2" Association="Self.FK_Maquina_2">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Maquina" EntitySet="Maquina" />
           </AssociationSet>
-          <AssociationSet Name="FK__Memoria__IdMaqui__6ABAD62E" Association="Self.FK__Memoria__IdMaqui__6ABAD62E">
+          <AssociationSet Name="FK_Memoria_1" Association="Self.FK_Memoria_1">
             <End Role="Maquina" EntitySet="Maquina" />
             <End Role="Memoria" EntitySet="Memoria" />
           </AssociationSet>
-          <AssociationSet Name="FK__Processad__IdMaq__7073AF84" Association="Self.FK__Processad__IdMaq__7073AF84">
+          <AssociationSet Name="FK_Processador_1" Association="Self.FK_Processador_1">
             <End Role="Maquina" EntitySet="Maquina" />
             <End Role="Processador" EntitySet="Processador" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Usuario__IdAssin__6501FCD8" Association="Self.FK__Usuario__IdAssin__6501FCD8">
-            <End Role="Assinatura" EntitySet="Assinatura" />
-            <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -162,11 +167,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Pacote" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__IdAssin__6501FCD8" FromRole="Assinatura" ToRole="Usuario" />
+          <Property Name="Nome" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Pacote" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Maquina" Relationship="Self.FK_Maquina_1" FromRole="Assinatura" ToRole="Maquina" />
         </EntityType>
-        <EntityType Name="Disco">
+        <EntityType Name="FileStore">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -174,22 +179,24 @@
           <Property Name="Total" Type="Int64" />
           <Property Name="Available" Type="Int64" />
           <Property Name="Momentum" Type="DateTime" Precision="3" />
-          <Property Name="IdMaquina" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Maquina" Relationship="Self.FK__Disco__IdMaquina__6D9742D9" FromRole="Disco" ToRole="Maquina" />
+          <Property Name="IdMaquina" Type="Int32" />
+          <NavigationProperty Name="Maquina" Relationship="Self.FK_FileStore_1" FromRole="FileStore" ToRole="Maquina" />
         </EntityType>
         <EntityType Name="Maquina">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="OSName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MacAddr" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
-          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Disco" Relationship="Self.FK__Disco__IdMaquina__6D9742D9" FromRole="Maquina" ToRole="Disco" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Maquina__IdUsuar__67DE6983" FromRole="Maquina" ToRole="Usuario" />
-          <NavigationProperty Name="Memoria" Relationship="Self.FK__Memoria__IdMaqui__6ABAD62E" FromRole="Maquina" ToRole="Memoria" />
-          <NavigationProperty Name="Processador" Relationship="Self.FK__Processad__IdMaq__7073AF84" FromRole="Maquina" ToRole="Processador" />
+          <Property Name="Name" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="OSName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Serial" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="IdAssinatura" Type="Int32" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <NavigationProperty Name="Assinatura" Relationship="Self.FK_Maquina_1" FromRole="Maquina" ToRole="Assinatura" />
+          <NavigationProperty Name="FileStore" Relationship="Self.FK_FileStore_1" FromRole="Maquina" ToRole="FileStore" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Maquina_2" FromRole="Maquina" ToRole="Usuario" />
+          <NavigationProperty Name="Memoria" Relationship="Self.FK_Memoria_1" FromRole="Maquina" ToRole="Memoria" />
+          <NavigationProperty Name="Processador" Relationship="Self.FK_Processador_1" FromRole="Maquina" ToRole="Processador" />
         </EntityType>
         <EntityType Name="Memoria">
           <Key>
@@ -201,57 +208,60 @@
           <Property Name="SwapTotal" Type="Int64" />
           <Property Name="SwapAvailable" Type="Int64" />
           <Property Name="Momentum" Type="DateTime" Precision="3" />
-          <Property Name="IdMaquina" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Maquina" Relationship="Self.FK__Memoria__IdMaqui__6ABAD62E" FromRole="Memoria" ToRole="Maquina" />
+          <Property Name="IdMaquina" Type="Int32" />
+          <NavigationProperty Name="Maquina" Relationship="Self.FK_Memoria_1" FromRole="Memoria" ToRole="Maquina" />
         </EntityType>
         <EntityType Name="Processador">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Usage" Type="Double" />
+          <Property Name="VendorFreq" Type="Int64" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LogicalProcessorCount" Type="Int32" />
+          <Property Name="PhysicalProcessorCount" Type="Int32" />
+          <Property Name="SystemUptime" Type="Time" Precision="7" />
+          <Property Name="SystemCpuLoad" Type="Double" />
           <Property Name="Momentum" Type="DateTime" Precision="3" />
-          <Property Name="IdMaquina" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Maquina" Relationship="Self.FK__Processad__IdMaq__7073AF84" FromRole="Processador" ToRole="Maquina" />
+          <Property Name="IdMaquina" Type="Int32" />
+          <NavigationProperty Name="Maquina" Relationship="Self.FK_Processador_1" FromRole="Processador" ToRole="Maquina" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NomeUsuario" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="Senha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Nome" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
-          <Property Name="IdAssinatura" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Assinatura" Relationship="Self.FK__Usuario__IdAssin__6501FCD8" FromRole="Usuario" ToRole="Assinatura" />
-          <NavigationProperty Name="Maquina" Relationship="Self.FK__Maquina__IdUsuar__67DE6983" FromRole="Usuario" ToRole="Maquina" />
+          <Property Name="Nome" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Maquina" Relationship="Self.FK_Maquina_2" FromRole="Usuario" ToRole="Maquina" />
         </EntityType>
-        <Association Name="FK__Usuario__IdAssin__6501FCD8">
-          <End Role="Assinatura" Type="Self.Assinatura" Multiplicity="1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+        <Association Name="FK_Maquina_1">
+          <End Role="Assinatura" Type="Self.Assinatura" Multiplicity="0..1" />
+          <End Role="Maquina" Type="Self.Maquina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Assinatura">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Usuario">
+            <Dependent Role="Maquina">
               <PropertyRef Name="IdAssinatura" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Disco__IdMaquina__6D9742D9">
-          <End Role="Maquina" Type="Self.Maquina" Multiplicity="1" />
-          <End Role="Disco" Type="Self.Disco" Multiplicity="*" />
+        <Association Name="FK_FileStore_1">
+          <End Role="Maquina" Type="Self.Maquina" Multiplicity="0..1" />
+          <End Role="FileStore" Type="Self.FileStore" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Maquina">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Disco">
+            <Dependent Role="FileStore">
               <PropertyRef Name="IdMaquina" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Maquina__IdUsuar__67DE6983">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+        <Association Name="FK_Maquina_2">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
           <End Role="Maquina" Type="Self.Maquina" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
@@ -262,8 +272,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Memoria__IdMaqui__6ABAD62E">
-          <End Role="Maquina" Type="Self.Maquina" Multiplicity="1" />
+        <Association Name="FK_Memoria_1">
+          <End Role="Maquina" Type="Self.Maquina" Multiplicity="0..1" />
           <End Role="Memoria" Type="Self.Memoria" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Maquina">
@@ -274,8 +284,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Processad__IdMaq__7073AF84">
-          <End Role="Maquina" Type="Self.Maquina" Multiplicity="1" />
+        <Association Name="FK_Processador_1">
+          <End Role="Maquina" Type="Self.Maquina" Multiplicity="0..1" />
           <End Role="Processador" Type="Self.Processador" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Maquina">
@@ -288,28 +298,28 @@
         </Association>
         <EntityContainer Name="dbHammerspaceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Assinatura" EntityType="Self.Assinatura" />
-          <EntitySet Name="Disco" EntityType="Self.Disco" />
+          <EntitySet Name="FileStore" EntityType="Self.FileStore" />
           <EntitySet Name="Maquina" EntityType="Self.Maquina" />
           <EntitySet Name="Memoria" EntityType="Self.Memoria" />
           <EntitySet Name="Processador" EntityType="Self.Processador" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK__Usuario__IdAssin__6501FCD8" Association="Self.FK__Usuario__IdAssin__6501FCD8">
+          <AssociationSet Name="FK_Maquina_1" Association="Self.FK_Maquina_1">
             <End Role="Assinatura" EntitySet="Assinatura" />
-            <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Disco__IdMaquina__6D9742D9" Association="Self.FK__Disco__IdMaquina__6D9742D9">
-            <End Role="Maquina" EntitySet="Maquina" />
-            <End Role="Disco" EntitySet="Disco" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Maquina__IdUsuar__67DE6983" Association="Self.FK__Maquina__IdUsuar__67DE6983">
-            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Maquina" EntitySet="Maquina" />
           </AssociationSet>
-          <AssociationSet Name="FK__Memoria__IdMaqui__6ABAD62E" Association="Self.FK__Memoria__IdMaqui__6ABAD62E">
+          <AssociationSet Name="FK_FileStore_1" Association="Self.FK_FileStore_1">
+            <End Role="Maquina" EntitySet="Maquina" />
+            <End Role="FileStore" EntitySet="FileStore" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Maquina_2" Association="Self.FK_Maquina_2">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Maquina" EntitySet="Maquina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Memoria_1" Association="Self.FK_Memoria_1">
             <End Role="Maquina" EntitySet="Maquina" />
             <End Role="Memoria" EntitySet="Memoria" />
           </AssociationSet>
-          <AssociationSet Name="FK__Processad__IdMaq__7073AF84" Association="Self.FK__Processad__IdMaq__7073AF84">
+          <AssociationSet Name="FK_Processador_1" Association="Self.FK_Processador_1">
             <End Role="Maquina" EntitySet="Maquina" />
             <End Role="Processador" EntitySet="Processador" />
           </AssociationSet>
@@ -329,9 +339,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Disco">
-            <EntityTypeMapping TypeName="dbHammerspaceModel.Disco">
-              <MappingFragment StoreEntitySet="Disco">
+          <EntitySetMapping Name="FileStore">
+            <EntityTypeMapping TypeName="dbHammerspaceModel.FileStore">
+              <MappingFragment StoreEntitySet="FileStore">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Available" ColumnName="Available" />
@@ -344,9 +354,10 @@
             <EntityTypeMapping TypeName="dbHammerspaceModel.Maquina">
               <MappingFragment StoreEntitySet="Maquina">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="OSName" ColumnName="OSName" />
-                <ScalarProperty Name="MacAddr" ColumnName="MacAddr" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="IdAssinatura" ColumnName="IdAssinatura" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -368,7 +379,12 @@
             <EntityTypeMapping TypeName="dbHammerspaceModel.Processador">
               <MappingFragment StoreEntitySet="Processador">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Usage" ColumnName="Usage" />
+                <ScalarProperty Name="VendorFreq" ColumnName="VendorFreq" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LogicalProcessorCount" ColumnName="LogicalProcessorCount" />
+                <ScalarProperty Name="PhysicalProcessorCount" ColumnName="PhysicalProcessorCount" />
+                <ScalarProperty Name="SystemUptime" ColumnName="SystemUptime" />
+                <ScalarProperty Name="SystemCpuLoad" ColumnName="SystemCpuLoad" />
                 <ScalarProperty Name="Momentum" ColumnName="Momentum" />
                 <ScalarProperty Name="IdMaquina" ColumnName="IdMaquina" />
               </MappingFragment>
@@ -378,10 +394,9 @@
             <EntityTypeMapping TypeName="dbHammerspaceModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NomeUsuario" ColumnName="NomeUsuario" />
-                <ScalarProperty Name="Senha" ColumnName="Senha" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="IdAssinatura" ColumnName="IdAssinatura" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

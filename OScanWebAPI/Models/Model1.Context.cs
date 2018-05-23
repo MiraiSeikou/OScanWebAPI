@@ -26,7 +26,7 @@ namespace OScanWebAPI.Models
         }
     
         public virtual DbSet<Assinatura> Assinatura { get; set; }
-        public virtual DbSet<Disco> Disco { get; set; }
+        public virtual DbSet<FileStore> FileStore { get; set; }
         public virtual DbSet<Maquina> Maquina { get; set; }
         public virtual DbSet<Memoria> Memoria { get; set; }
         public virtual DbSet<Processador> Processador { get; set; }

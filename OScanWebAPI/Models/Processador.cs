@@ -15,9 +15,14 @@ namespace OScanWebAPI.Models
     public partial class Processador
     {
         public int Id { get; set; }
-        public Nullable<double> Usage { get; set; }
+        public Nullable<long> VendorFreq { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> LogicalProcessorCount { get; set; }
+        public Nullable<int> PhysicalProcessorCount { get; set; }
+        public Nullable<System.TimeSpan> SystemUptime { get; set; }
+        public Nullable<double> SystemCpuLoad { get; set; }
         public Nullable<System.DateTime> Momentum { get; set; }
-        public int IdMaquina { get; set; }
+        public Nullable<int> IdMaquina { get; set; }
     
         public virtual Maquina Maquina { get; set; }
     }

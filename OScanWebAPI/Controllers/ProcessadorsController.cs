@@ -1,4 +1,4 @@
-﻿	using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -16,28 +16,23 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
-        public ProcessadorsController()
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-        }
-
         // GET: api/Processadors
         public IQueryable<Processador> GetProcessador()
         {
             return db.Processador;
         }
 
-        [Route("api/Processadors/IdMaquina/{idMaquina}")]
-        public IQueryable<Processador> GetAllProcessador(int idMaquina)
+        // GET: api/Processadors/5
+        [ResponseType(typeof(Processador))]
+        public IHttpActionResult GetProcessador(int id)
         {
-            return db.Processador.Where(p => p.IdMaquina.Equals(idMaquina));
-        }
+            Processador processador = db.Processador.Find(id);
+            if (processador == null)
+            {
+                return NotFound();
+            }
 
-        // GET: api/Processador/idMaquina
-        [Route("api/Processadors/Id/{idMaquina}")]
-        public IHttpActionResult GetLastProcessador(int idMaquina)
-        {
-            return Ok(db.Processador.OrderByDescending(d => d.Momentum).First(d => d.IdMaquina == idMaquina));
+            return Ok(processador);
         }
 
         // PUT: api/Processadors/5

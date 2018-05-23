@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="09ee9dadea3f4ae4a59a570111541a97" Name="Diagram1">
-        <EntityTypeShape EntityType="dbHammerspaceModel.Assinatura" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbHammerspaceModel.Disco" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbHammerspaceModel.Maquina" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbHammerspaceModel.Memoria" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbHammerspaceModel.Processador" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbHammerspaceModel.Usuario" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
-        <AssociationConnector Association="dbHammerspaceModel.FK__Usuario__IdAssin__6501FCD8" ManuallyRouted="false" />
-        <AssociationConnector Association="dbHammerspaceModel.FK__Disco__IdMaquina__6D9742D9" ManuallyRouted="false" />
-        <AssociationConnector Association="dbHammerspaceModel.FK__Maquina__IdUsuar__67DE6983" ManuallyRouted="false" />
-        <AssociationConnector Association="dbHammerspaceModel.FK__Memoria__IdMaqui__6ABAD62E" ManuallyRouted="false" />
-        <AssociationConnector Association="dbHammerspaceModel.FK__Processad__IdMaq__7073AF84" ManuallyRouted="false" />
+      <Diagram DiagramId="c03b7280e41849afb5045152440f05a1" Name="Diagram1">
+        <EntityTypeShape EntityType="dbHammerspaceModel.Assinatura" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbHammerspaceModel.FileStore" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbHammerspaceModel.Maquina" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbHammerspaceModel.Memoria" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbHammerspaceModel.Processador" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbHammerspaceModel.Usuario" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="dbHammerspaceModel.FK_Maquina_1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbHammerspaceModel.FK_FileStore_1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbHammerspaceModel.FK_Maquina_2" ManuallyRouted="false" />
+        <AssociationConnector Association="dbHammerspaceModel.FK_Memoria_1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbHammerspaceModel.FK_Processador_1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

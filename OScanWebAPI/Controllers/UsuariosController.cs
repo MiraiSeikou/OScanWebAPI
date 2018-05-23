@@ -16,11 +16,6 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
-        public UsuariosController()
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-        }
-
         // GET: api/Usuarios
         public IQueryable<Usuario> GetUsuario()
         {
@@ -32,20 +27,6 @@ namespace OScanWebAPI.Controllers
         public IHttpActionResult GetUsuario(int id)
         {
             Usuario usuario = db.Usuario.Find(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(usuario);
-        }
-
-        // GET: api/Usuarios/5
-        [ResponseType(typeof(Usuario))]
-        [Route("api/Usuarios/{username}/{password}")]
-        public IHttpActionResult GetUsuario(string username, string password)
-        {
-            Usuario usuario = db.Usuario.First(u => u.NomeUsuario.Equals(username) && u.Senha.Equals(password));
             if (usuario == null)
             {
                 return NotFound();

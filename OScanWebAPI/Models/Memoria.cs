@@ -20,7 +20,7 @@ namespace OScanWebAPI.Models
         public Nullable<long> SwapTotal { get; set; }
         public Nullable<long> SwapAvailable { get; set; }
         public Nullable<System.DateTime> Momentum { get; set; }
-        public int IdMaquina { get; set; }
+        public Nullable<int> IdMaquina { get; set; }
     
         public virtual Maquina Maquina { get; set; }
     }
