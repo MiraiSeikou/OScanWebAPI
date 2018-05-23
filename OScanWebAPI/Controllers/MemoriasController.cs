@@ -16,6 +16,11 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
+        public MemoriasController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
         // GET: api/Memorias
         public IQueryable<Memoria> GetMemoria()
         {

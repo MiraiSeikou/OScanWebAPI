@@ -16,6 +16,11 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
+        public UsuariosController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
         // GET: api/Usuarios
         public IQueryable<Usuario> GetUsuario()
         {

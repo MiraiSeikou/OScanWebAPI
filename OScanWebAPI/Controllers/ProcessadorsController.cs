@@ -16,6 +16,11 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
+        public ProcessadorsController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
         // GET: api/Processadors
         public IQueryable<Processador> GetProcessador()
         {

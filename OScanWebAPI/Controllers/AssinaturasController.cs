@@ -16,6 +16,11 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
+        public AssinaturasController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
         // GET: api/Assinaturas
         public IQueryable<Assinatura> GetAssinatura()
         {

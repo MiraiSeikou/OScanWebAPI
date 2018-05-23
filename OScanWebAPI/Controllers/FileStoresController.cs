@@ -16,6 +16,11 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
+        public FileStoresController()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+        }
+
         // GET: api/FileStores
         public IQueryable<FileStore> GetFileStore()
         {
