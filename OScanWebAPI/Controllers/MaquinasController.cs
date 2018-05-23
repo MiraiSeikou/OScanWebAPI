@@ -47,6 +47,20 @@ namespace OScanWebAPI.Controllers
             return Ok(maquina);
         }
 
+        // GET: api/Maquinas/5
+        [ResponseType(typeof(Maquina))]
+        [Route("api/Maquinas/{serial}")]
+        public IHttpActionResult GetMaquina(string serial)
+        {
+            Maquina maquina = db.Maquina.Where(m => m.Serial == serial).First();
+            if (maquina == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(maquina);
+        }
+
         // PUT: api/Maquinas/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutMaquina(int id, Maquina maquina)
