@@ -23,7 +23,7 @@ namespace OScanWebAPI.Controllers
 
         // GET: api/Maquinas
         public IQueryable<Maquina> GetMaquina()
-        {
+        {   
             return db.Maquina;
         }
 
