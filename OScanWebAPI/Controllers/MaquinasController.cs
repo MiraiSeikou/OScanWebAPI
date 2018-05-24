@@ -49,7 +49,7 @@ namespace OScanWebAPI.Controllers
 
         // GET: api/Maquinas/5
         [ResponseType(typeof(Maquina))]
-        [Route("api/Maquinas/{serial}")]
+        [Route("api/Maquinas/serial/{serial}")]
         public IHttpActionResult GetMaquina(string serial)
         {
             Maquina maquina = db.Maquina.First(m => m.Serial == serial);
