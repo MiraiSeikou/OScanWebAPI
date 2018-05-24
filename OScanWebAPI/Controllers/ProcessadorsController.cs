@@ -27,7 +27,7 @@ namespace OScanWebAPI.Controllers
             return db.Processador;
         }
 		
-		[ResponseType(typeof(processador))]
+		[ResponseType(typeof(Processador))]
         [Route("api/Processadors/Id/{id}")]
         public IHttpActionResult GetProcessadorIdMaquina(int id)
         {
