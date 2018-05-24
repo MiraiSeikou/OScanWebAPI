@@ -52,6 +52,8 @@ namespace OScanWebAPI.Controllers
         [Route("api/Maquinas/serial/{serial}")]
         public IHttpActionResult GetMaquinaBySerial(string serial)
         {
+            if (!db.Maquina.Any())
+                return NotFound();
             Maquina maquina = db.Maquina.First(m => m.Serial == serial);
             if (maquina == null)
             {
