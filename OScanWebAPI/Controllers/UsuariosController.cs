@@ -29,6 +29,7 @@ namespace OScanWebAPI.Controllers
 
         // GET: api/Usuarios/5
         [ResponseType(typeof(Usuario))]
+        [Route("api/Usuarios/Id/{id}")]
         public IHttpActionResult GetUsuario(int id)
         {
             Usuario usuario = db.Usuario.Find(id);
