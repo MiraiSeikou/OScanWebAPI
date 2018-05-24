@@ -26,6 +26,19 @@ namespace OScanWebAPI.Controllers
         {
             return db.FileStore;
         }
+		
+		[ResponseType(typeof(FileStore))]
+		[Route("api/Discoes/Id/{id}")]
+        public IHttpActionResult GetMemoriaIdMaquina(int id)
+        {
+            FileStore fileStore = db.FileStore.FirstOrDefault(f => f.IdMaquina == id);
+            if (fileStore == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(fileStore);
+        }
 
         // GET: api/FileStores/5
         [ResponseType(typeof(FileStore))]

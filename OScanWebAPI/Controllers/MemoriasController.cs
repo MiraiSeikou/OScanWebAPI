@@ -26,6 +26,19 @@ namespace OScanWebAPI.Controllers
         {
             return db.Memoria;
         }
+		
+		[ResponseType(typeof(memoria))]
+		[Route("api/Memorias/Id/{id}")]
+        public IHttpActionResult GetMemoriaIdMaquina(int id)
+        {
+            Memoria memoria = db.Memoria.FirstOrDefault(m => m.IdMaquina == id);
+            if (memoria == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(memoria);
+        }
 
         // GET: api/Memorias/5
         [ResponseType(typeof(Memoria))]
