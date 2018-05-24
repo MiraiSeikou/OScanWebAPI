@@ -22,35 +22,17 @@ namespace OScanWebAPI.Controllers
         }
 
         // GET: api/Processadors
-        public IQueryable<Processador> GetProcessador()
+        [Route("api/Processadors/IdMaquina/{idMaquina}")]
+        public IQueryable<Processador> GetAllProcessador(int idMaquina)
         {
-            return db.Processador;
-        }
-		
-		[ResponseType(typeof(Processador))]
-        [Route("api/Processadors/Id/{id}")]
-        public IHttpActionResult GetProcessadorIdMaquina(int id)
-        {
-            Processador processador = db.Processador.FirstOrDefault(p => p.IdMaquina == id);
-            if (processador == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(processador);
+            return db.Processador.Where(p => p.IdMaquina.Equals(idMaquina));
         }
 
-        // GET: api/Processadors/5
-        [ResponseType(typeof(Processador))]
-        public IHttpActionResult GetProcessador(int id)
+        // GET: api/Processador/idMaquina
+        [Route("api/Processadors/Id/{idMaquina}")]
+        public IHttpActionResult GetLastProcessador(int idMaquina)
         {
-            Processador processador = db.Processador.Find(id);
-            if (processador == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(processador);
+            return Ok(db.Processador.OrderByDescending(d => d.Momentum).First(d => d.IdMaquina == idMaquina));
         }
 
         // PUT: api/Processadors/5

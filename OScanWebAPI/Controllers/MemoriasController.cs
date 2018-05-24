@@ -21,36 +21,17 @@ namespace OScanWebAPI.Controllers
             db.Configuration.ProxyCreationEnabled = false;
         }
 
-        // GET: api/Memorias
-        public IQueryable<Memoria> GetMemoria()
+        // GET: api/Memorias/{idMaquina}
+        [Route("api/Memorias/IdMaquina/{idMaquina}")]
+        public IQueryable<Memoria> GetAlltMemorias(int idMaquina)
         {
-            return db.Memoria;
-        }
-		
-		[ResponseType(typeof(Memoria))]
-		[Route("api/Memorias/Id/{id}")]
-        public IHttpActionResult GetMemoriaIdMaquina(int id)
-        {
-            Memoria memoria = db.Memoria.FirstOrDefault(m => m.IdMaquina == id);
-            if (memoria == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(memoria);
+            return db.Memoria.Where(m => m.IdMaquina.Equals(idMaquina));
         }
 
-        // GET: api/Memorias/5
-        [ResponseType(typeof(Memoria))]
-        public IHttpActionResult GetMemoria(int id)
+        [Route("api/Memorias/Id/{idMaquina}")]
+        public IHttpActionResult GetLastMemorias(int idMaquina)
         {
-            Memoria memoria = db.Memoria.Find(id);
-            if (memoria == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(memoria);
+            return Ok(db.Memoria.OrderByDescending(d => d.Momentum).First(d => d.IdMaquina == idMaquina));
         }
 
         // PUT: api/Memorias/5

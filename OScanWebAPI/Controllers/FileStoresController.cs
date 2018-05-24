@@ -21,36 +21,17 @@ namespace OScanWebAPI.Controllers
             db.Configuration.ProxyCreationEnabled = false;
         }
 
-        // GET: api/FileStores
-        public IQueryable<FileStore> GetFileStore()
+        // GET: api/Discoes/idMaquina
+        [Route("api/Discoes/IdMaquina/{idMaquina}")]
+        public IQueryable<FileStore> GetAllDiscoes(int idMaquina)
         {
-            return db.FileStore;
-        }
-		
-		[ResponseType(typeof(FileStore))]
-		[Route("api/Discoes/Id/{id}")]
-        public IHttpActionResult GetMemoriaIdMaquina(int id)
-        {
-            FileStore fileStore = db.FileStore.FirstOrDefault(f => f.IdMaquina == id);
-            if (fileStore == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(fileStore);
+            return db.FileStore.Where(d => d.IdMaquina.Equals(idMaquina));
         }
 
-        // GET: api/FileStores/5
-        [ResponseType(typeof(FileStore))]
-        public IHttpActionResult GetFileStore(int id)
+        [Route("api/Discoes/Id/{idMaquina}")]
+        public IHttpActionResult GetDiscoes(int idMaquina)
         {
-            FileStore fileStore = db.FileStore.Find(id);
-            if (fileStore == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(fileStore);
+            return Ok(db.FileStore.OrderByDescending(d => d.Momentum).First(d => d.IdMaquina == idMaquina));
         }
 
         // PUT: api/FileStores/5

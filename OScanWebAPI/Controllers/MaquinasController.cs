@@ -21,12 +21,6 @@ namespace OScanWebAPI.Controllers
             db.Configuration.ProxyCreationEnabled = false;
         }
 
-        // GET: api/Maquinas
-        public IQueryable<Maquina> GetMaquina()
-        {   
-            return db.Maquina;
-        }
-
         [Route("api/Maquinas/IdUsuario/{idUsuario}")]
         public IQueryable<Maquina> GetMaquinaByUsuario(int idUsuario)
         {
