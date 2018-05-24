@@ -41,6 +41,20 @@ namespace OScanWebAPI.Controllers
             return Ok(usuario);
         }
 
+        // GET: api/Usuarios/5
+        [ResponseType(typeof(Usuario))]
+        [Route("api/Usuarios/{email}/{senha}")]
+        public IHttpActionResult GetUsuario(string email, string senha)
+        {
+            Usuario usuario = db.Usuario.First(u => u.Email == email && u.Senha == senha);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(usuario);
+        }
+
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUsuario(int id, Usuario usuario)
