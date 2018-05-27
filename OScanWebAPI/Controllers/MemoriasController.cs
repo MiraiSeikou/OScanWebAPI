@@ -25,7 +25,7 @@ namespace OScanWebAPI.Controllers
         [Route("api/Memorias/IdMaquina/{idMaquina}")]
         public IQueryable<Memoria> GetAlltMemorias(int idMaquina)
         {
-            return db.Memoria.Where(m => m.IdMaquina.Equals(idMaquina));
+            return db.Memoria.Where(m => m.IdMaquina == idMaquina);
         }
 
         [Route("api/Memorias/Id/{idMaquina}")]

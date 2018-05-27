@@ -25,7 +25,7 @@ namespace OScanWebAPI.Controllers
         [Route("api/Discoes/IdMaquina/{idMaquina}")]
         public IQueryable<FileStore> GetAllDiscoes(int idMaquina)
         {
-            return db.FileStore.Where(d => d.IdMaquina.Equals(idMaquina));
+            return db.FileStore.Where(d => d.IdMaquina == idMaquina);
         }
 
         [Route("api/Discoes/Id/{idMaquina}")]
