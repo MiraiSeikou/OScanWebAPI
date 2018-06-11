@@ -46,7 +46,8 @@ namespace OScanWebAPI.Controllers
         [Route("api/Usuarios/{email}/{senha}")]
         public IHttpActionResult GetUsuario(string email, string senha)
         {
-            Usuario usuario = db.Usuario.First(u => u.Email == email && u.Senha == senha);
+            Usuario usuario = db.Usuario.FirstOrDefault(u => u.Email == email && u.Senha == senha);
+
             if (usuario == null)
             {
                 return NotFound();
@@ -60,7 +61,8 @@ namespace OScanWebAPI.Controllers
         [Route("api/Usuarios/{email}")]
         public IHttpActionResult GetUsuario(string email)
         {
-            Usuario usuario = db.Usuario.First(u => u.Email == email);
+            Usuario usuario = db.Usuario.FirstOrDefault(u => u.Email == email);
+
             if (usuario == null)
             {
                 return NotFound();

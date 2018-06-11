@@ -95,6 +95,7 @@ namespace OScanWebAPI.Controllers
         public IHttpActionResult DeleteAssinatura(int id)
         {
             Assinatura assinatura = db.Assinatura.Find(id);
+
             if (assinatura == null)
             {
                 return NotFound();
