@@ -50,7 +50,7 @@ namespace OScanWebAPI.Controllers
 
             if (usuario == null)
             {
-                return NotFound();
+                return Content(HttpStatusCode.NoContent, "");
             }
 
             return Ok(usuario);
