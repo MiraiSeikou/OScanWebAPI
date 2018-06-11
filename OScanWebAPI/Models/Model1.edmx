@@ -178,7 +178,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Total" Type="Int64" />
           <Property Name="Available" Type="Int64" />
-          <Property Name="Momentum" Type="DateTime" />
+          <Property Name="Momentum" Type="DateTime" Precision="3" />
           <Property Name="IdMaquina" Type="Int32" />
           <NavigationProperty Name="Maquina" Relationship="Self.FK_FileStore_1" FromRole="FileStore" ToRole="Maquina" />
         </EntityType>
@@ -207,7 +207,7 @@
           <Property Name="Available" Type="Int64" />
           <Property Name="SwapTotal" Type="Int64" />
           <Property Name="SwapAvailable" Type="Int64" />
-          <Property Name="Momentum" Type="DateTime" />
+          <Property Name="Momentum" Type="DateTime" Precision="3" />
           <Property Name="IdMaquina" Type="Int32" />
           <NavigationProperty Name="Maquina" Relationship="Self.FK_Memoria_1" FromRole="Memoria" ToRole="Maquina" />
         </EntityType>
@@ -220,9 +220,9 @@
           <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="LogicalProcessorCount" Type="Int32" />
           <Property Name="PhysicalProcessorCount" Type="Int32" />
-          <Property Name="SystemUptime" Type="Time" />
+          <Property Name="SystemUptime" Type="Time" Precision="7" />
           <Property Name="SystemCpuLoad" Type="Double" />
-          <Property Name="Momentum" Type="DateTime" />
+          <Property Name="Momentum" Type="DateTime" Precision="3" />
           <Property Name="IdMaquina" Type="Int32" />
           <NavigationProperty Name="Maquina" Relationship="Self.FK_Processador_1" FromRole="Processador" ToRole="Maquina" />
         </EntityType>
