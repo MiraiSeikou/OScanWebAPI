@@ -61,23 +61,18 @@ namespace OScanWebAPI.Controllers
 		[Route("api/Maquinas/{id}/{maquina}")]
         public IHttpActionResult PutMaquina(int id, Maquina maquina)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             if (id != maquina.Id)
             {
                 return BadRequest();
             }
 
-			db.Attach(maquina);
-            db.Entry(maquina).State = EntityState.Modified;
-
-            try
+			try
             {
-                db.SaveChanges();
-				return Ok;
+				db.Maquina.RemoveAt(db.Maquina.FindIndex( m => m.Id == id));
+                db.Maquina.Add(maquina);
+				db.SaveChanges();
+				
+				return Ok();
             }
             catch (DbUpdateConcurrencyException)
             {
