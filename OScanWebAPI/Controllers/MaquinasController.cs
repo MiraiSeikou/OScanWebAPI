@@ -58,7 +58,7 @@ namespace OScanWebAPI.Controllers
 
         // PUT: api/Maquinas/5
         [ResponseType(typeof(void))]
-		[Route("api/Maquinas/{id}/{maquina}")]
+		[Route("api/Maquinas/{id}")]
         public IHttpActionResult PutMaquina(int id, Maquina maquina)
         {
             if (id != maquina.Id)
@@ -68,11 +68,10 @@ namespace OScanWebAPI.Controllers
 
 			try
             {
-				db.Maquina.RemoveAt(db.Maquina.FindIndex( m => m.Id == id));
+                db.Maquina.Remove(db.Maquina.FirstOrDefault(m => m.Id == id));
                 db.Maquina.Add(maquina);
 				db.SaveChanges();
-				
-				return Ok();
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -86,7 +85,7 @@ namespace OScanWebAPI.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return StatusCode(HttpStatusCode.Accepted);
         }
 
         // POST: api/Maquinas
