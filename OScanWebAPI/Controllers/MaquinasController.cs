@@ -58,7 +58,7 @@ namespace OScanWebAPI.Controllers
 
         // PUT: api/Maquinas/5
         [ResponseType(typeof(void))]
-		[Route("api/Maquinas/{id}/{maquina}
+		[Route("api/Maquinas/{id}/{maquina}")]
         public IHttpActionResult PutMaquina(int id, Maquina maquina)
         {
             if (!ModelState.IsValid)
