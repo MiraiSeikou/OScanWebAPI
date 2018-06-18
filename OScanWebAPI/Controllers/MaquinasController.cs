@@ -66,12 +66,16 @@ namespace OScanWebAPI.Controllers
                 return BadRequest();
             }
 
-			try
+            if (id != maquina.Id)
             {
-                db.Maquina.Remove(db.Maquina.FirstOrDefault(m => m.Id == id));
-                db.Maquina.Add(maquina);
-				db.SaveChanges();
+                return BadRequest();
+            }
 
+            db.Entry(maquina).State = EntityState.Modified;
+
+            try
+            {
+				db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,7 +89,7 @@ namespace OScanWebAPI.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.Accepted);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Maquinas
