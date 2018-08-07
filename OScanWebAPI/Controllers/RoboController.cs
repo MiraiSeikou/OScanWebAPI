@@ -16,7 +16,7 @@ namespace OScanWebAPI.Controllers
         public void Teste(string issue)
         {
             db.Assinatura.Add(new Assinatura()
-            {
+            {   
                 Nome = issue
             });
         }
