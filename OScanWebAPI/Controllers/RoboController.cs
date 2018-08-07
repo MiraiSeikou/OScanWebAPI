@@ -12,7 +12,7 @@ namespace OScanWebAPI.Controllers
     {
         private dbHammerspaceEntities db = new dbHammerspaceEntities();
 
-        [Route("api/Robo/Teste/{issue}")]
+        [Route("api/Robo/webhooks/{issue}")]
         public void Teste(string issue)
         {
             db.Assinatura.Add(new Assinatura()
